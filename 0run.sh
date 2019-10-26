@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONF_DIR=~/.config
-BACKUP="nvim awesome termite"
+BACKUP="nvim awesome termite alacritty"
 
 if [[ "$1" = "install" ]]; then
   for dir in ${BACKUP}; do

@@ -47,7 +47,8 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "xarkes/theme.lua")
 --beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "termite"
+-- terminal = "termite"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
