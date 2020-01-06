@@ -372,8 +372,10 @@ globalkeys = gears.table.join(
 
     -- Screenshot
     --awful.key({ }, "Print", function () awful.spawn.with_shell("sleep 0.1 && scrot -s -e 'mv $f ~/pictures/screenshots/'") end),
-    awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("maim -s ~/pictures/screenshots/$(date +%F-%H%M%S)_maim.png") end),
-    awful.key({ }, "Print", function () awful.spawn.with_shell("maim -s | xclip -selection clipboard -t image/png") end),
+    --awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("maim -s ~/pictures/screenshots/$(date +%F-%H%M%S)_maim.png") end),
+    --awful.key({ }, "Print", function () awful.spawn.with_shell("maim -s | xclip -selection clipboard -t image/png") end),
+    awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("flameshot -p ~/pictures/screenshots") end),
+    awful.key({ }, "Print", function () awful.spawn.with_shell("flameshot gui") end),
 
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume",
@@ -395,7 +397,10 @@ globalkeys = gears.table.join(
 
    -- Keyboard layout
    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("setxkbmap fr") end),
-   awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn("setxkbmap us") end)
+   awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn("setxkbmap us") end),
+
+   -- Utils
+   awful.key({ modkey }, "e", function () awful.util.spawn("nautilus") end)
 )
 
 clientkeys = gears.table.join(
@@ -643,5 +648,5 @@ end
 -- Auto start softwares
 run_once("xss-lock -- slock")
 run_once("nm-applet")
--- run_once("compton -b")
+run_once("picom -b")
 
