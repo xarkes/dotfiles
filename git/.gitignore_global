@@ -1,0 +1,5 @@
+# Ignore those files everywhere
+compile_commands.json
+.ccls
+.ccls-cache/
+.idea/
