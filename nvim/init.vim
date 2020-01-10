@@ -13,6 +13,7 @@ Plug 'itchyny/lightline.vim'      " A cool status line
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'           " Fuzzy Search because whynot
 Plug 'tpope/vim-sleuth'           " Fuck this vim indentation ...
+Plug 'tomasiser/vim-code-dark'
 call plug#end()
 
 " General 
@@ -32,13 +33,14 @@ set cc=80                         " show line at 80ch
 set mouse=a                       " it's good to have a mouse sometimes
 
 " Color and style configuration
-set termguicolors
+"set termguicolors
 syntax on
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
-set background=dark
-let ayucolor="dark"
-colorscheme ayu
+"set background=dark
+"let ayucolor="dark"
+"colorscheme ayu
+colorscheme codedark
 
 """"""""""""""""""""""
 " CoC configuration
