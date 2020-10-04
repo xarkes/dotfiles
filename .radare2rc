@@ -9,3 +9,5 @@ eco ayu
 # Disable mouse
 e scr.wheel = false
 
+# Use new parser
+e cfg.newshell = true

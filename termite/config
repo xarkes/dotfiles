@@ -42,5 +42,5 @@ color7  = #cccccc
 color15 = #ffffff
 
 [options]
-font = Monospace 10
-#font = Droid Sans Mono 12
+#font = Monospace 10
+font = Droid Sans Mono 11

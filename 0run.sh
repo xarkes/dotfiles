@@ -31,8 +31,8 @@ backup_files() {
     cp -r "${HOME}/$f" ./
   done
 
-  # Don't backup wallpapers
-  rm awesome/xarkes/*.{png,jpg}
+  # Don't backup zzen theme wallpapers
+  rm awesome/zzen/*.png
 }
 
 if [[ "$1" = "install" ]]; then
