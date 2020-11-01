@@ -333,6 +333,10 @@ globalkeys = gears.table.join(
     awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end),
     awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 10") end),
 
+    -- Keymap
+    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("setxkbmap fr") end),
+    awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn("setxkbmap us") end),
+
     -- Lock
     awful.key({ modkey, "Shift" }, "End", function () awful.util.spawn("slock") end),
 
