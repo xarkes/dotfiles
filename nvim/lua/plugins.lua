@@ -68,12 +68,13 @@ packer.startup(function()
 
   -- LSP <3
   use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/nvim-compe'
 
   -- A nice colors scheme
   use {'dracula/vim', as = 'dracula'}
 
   -- Pretty syntax highlighter
-  use 'nvim-treesitter/nvim-treesitter'
+  --use 'nvim-treesitter/nvim-treesitter'
 
 end)
 

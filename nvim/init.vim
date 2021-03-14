@@ -16,10 +16,12 @@ set inccommand=nosplit
 set mouse=a
 " Use true colors
 set termguicolors
+" Completion
+set completeopt=menuone,noselect
 
 let g:python3_host_prog="/usr/bin/python3"
 
-" For post loading configurations, see plugin/after.vim
+" For post loading of configurations, see plugin/after.vim
 
 """ Shortcuts
 "" Buffers
@@ -44,3 +46,4 @@ nnoremap <space>x0 <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <space>xW <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <space>xd <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <space>xn <cmd>lua vim.lsp.buf.rename()<CR>
+
