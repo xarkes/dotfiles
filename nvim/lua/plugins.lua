@@ -70,11 +70,13 @@ packer.startup(function()
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-compe'
 
-  -- A nice colors scheme
-  use {'dracula/vim', as = 'dracula'}
-
   -- Pretty syntax highlighter
-  --use 'nvim-treesitter/nvim-treesitter'
+  use 'nvim-treesitter/nvim-treesitter'
+
+  -- Color schemes
+  use {'dracula/vim', as = 'dracula'}
+  use 'AlessandroYorba/Sierra'
+  use 'flrnd/candid.vim'
 
 end)
 

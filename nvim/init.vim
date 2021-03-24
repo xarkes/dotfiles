@@ -1,4 +1,10 @@
 """ Load plugins (thanks wbthomason/packer.nvim)
+"""
+""" Install:
+""" `git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim`
+""" :PackerUpdate
+""" Requires neovim master (builtin TreeSitter)
+"""
 lua require('plugins')
 
 """ General configuration
@@ -28,22 +34,30 @@ let g:python3_host_prog="/usr/bin/python3"
 nnoremap <space>bn :bn<CR>
 nnoremap <space>bp :bp<CR>
 nnoremap <space>bd :bd<CR>
-nnoremap <space>bb :Buffers<CR>
 
-nnoremap <space><space> :FZF<CR>
+"" Explorers
+nnoremap <space>gb :Buffers<CR>
+nnoremap <space>gf :FZF<CR>
+" Git grep wrapper
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+nnoremap <space>gg :GGrep<CR>
+nnoremap <space>gr :Rg<CR>
 
 "" Easy Copy
 vnoremap <C-c> "+y
 
 "" LSP
-nnoremap <space>x] <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <space>xK <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <space>xD <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <space>xk <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <space>x[ <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <space>xx <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <space>x0 <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <space>xW <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <space>xd <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <space>xn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>x] <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>xK <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>xD <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>xk <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>x[ <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <leader>xx <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <leader>x0 <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <leader>xW <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <leader>xd <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <leader>xn <cmd>lua vim.lsp.buf.rename()<CR>
 

@@ -1,5 +1,5 @@
 " Post load config
-color dracula
+colorscheme candid
 
 " LSP Configuration
 lua <<EOF
@@ -41,3 +41,14 @@ require'compe'.setup {
   };
 }
 EOF
+
+" Tree-sitter integration
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "cpp",     -- one of "all", "language", or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+EOF
+
