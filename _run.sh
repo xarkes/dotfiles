@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONF_DIR=~/.config
-BACKUP="nvim awesome termite alacritty picom git"
+BACKUP="nvim awesome alacritty picom git"
 BACKUPROOT=".radare2rc .gitconfig"
 
 install_files() {
