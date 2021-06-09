@@ -71,7 +71,7 @@ packer.startup(function()
   use 'hrsh7th/nvim-compe'
 
   -- Pretty syntax highlighter
-  use 'nvim-treesitter/nvim-treesitter'
+  --use 'nvim-treesitter/nvim-treesitter'
 
   -- Color schemes
   use {'dracula/vim', as = 'dracula'}
