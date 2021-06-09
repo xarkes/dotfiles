@@ -1,14 +1,14 @@
 #!/bin/sh
 
-CONF_DIR=~/.config
+CONFIG_DIR=~/.config
 BACKUP="nvim awesome alacritty picom git"
-BACKUPROOT=".radare2rc .gitconfig"
+BACKUPROOT=".rizinrc .zshrc"
 
 install_files() {
   # Backup files that are in .config
   for dir in ${BACKUP}; do
-    if [ -e "${CONF_DIR}/${dir}" ]; then
-      mv "${CONF_DIR}/${dir}" "${CONF_DIR}/${dir}.old"
+    if [ -e "${CONFIG_DIR}/${dir}" ]; then
+      mv "${CONFIG_DIR}/${dir}" "${CONFIG_DIR}/${dir}.old"
     fi
     cp -r "${dir}" "${CONFIG_DIR}/${dir}"
   done
@@ -24,7 +24,7 @@ install_files() {
 backup_files() {
   # Save files that are in .config
   for dir in ${BACKUP}; do
-    cp -r "${CONF_DIR}/${dir}" ./
+    cp -r "${CONFIG_DIR}/${dir}" ./
   done
   # Save files that are in ~/.*
   for f in ${BACKUPROOT}; do
