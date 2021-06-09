@@ -30,9 +30,6 @@ backup_files() {
   for f in ${BACKUPROOT}; do
     cp -r "${HOME}/$f" ./
   done
-
-  # Don't backup zzen theme wallpapers
-  rm awesome/zzen/*.png
 }
 
 if [[ "$1" = "install" ]]; then
