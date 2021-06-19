@@ -17,6 +17,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+-- Shared tags
+local sharedtags = require("sharedtags")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -50,7 +52,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "zzen/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
-editor = os.getenv("EDITOR") or "nano"
+editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -165,12 +167,64 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+-- {{{ Tags
+local tags = sharedtags({
+    { name = "1", layout = awful.layout.layouts[2] },
+    { name = "2", layout = awful.layout.layouts[10] },
+    { name = "3", layout = awful.layout.layouts[2] },
+    { name = "4", layout = awful.layout.layouts[2] },
+    { name = "5", layout = awful.layout.layouts[2] },
+    { name = "6", layout = awful.layout.layouts[2] },
+    { name = "7", layout = awful.layout.layouts[2] },
+    { name = "8", layout = awful.layout.layouts[2] },
+    { name = "irc", layout = awful.layout.layouts[2] },
+    { name = "w0", layout = awful.layout.layouts[2] },
+    { name = "w1", layout = awful.layout.layouts[2] },
+    { name = "w2", layout = awful.layout.layouts[2] },
+    { name = "w3", layout = awful.layout.layouts[2] },
+    { name = "sc", screen = 2, layout = awful.layout.layouts[2] },
+})
+
+local function rename_tag()
+   awful.prompt.run {
+      prompt       = "New tag name: ",
+      textbox      = awful.screen.focused().mypromptbox.widget,
+      exe_callback = function(new_name)
+         if not new_name or #new_name == 0 then return end
+
+         local t = awful.screen.focused().selected_tag
+         if t then
+            t.name = new_name
+         end
+      end
+   }
+end
+
+local function jump_to_window()
+   awful.util.spawn("rofi -modi window -show window")
+end
+
+local function move_tag_to_screen()
+   local sc = screen.count()
+   local si = ((awful.screen.focused().index) % sc) + 1
+   local t = client.focus and client.focus.first_tag or nil
+   for s in screen do
+      if s.index == si then
+         sharedtags.viewonly(t, s)
+         awful.screen.focus(s)
+         break
+      end
+   end
+end
+
+-- }}}
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
-    -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[2])
+    -- Use shared tags among screens
+    sharedtags.viewonly(tags["sc"], s)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -330,37 +384,62 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end),
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 10") end),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end,
+      {description = "increase screen brightness", group = "misc"}),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 10") end,
+      {description = "descrease screen brightness", group = "misc"}),
 
     -- Keymap
-    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("setxkbmap fr") end),
-    awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn("setxkbmap us") end),
+    awful.key({ modkey, "Shift" }, "i", function () awful.util.spawn("setxkbmap fr") end,
+      {description = "switch keyboard layout to french", group = "misc"}),
+    awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn("setxkbmap us") end,
+      {description = "switch keyboard layout to english", group = "misc"}),
 
     -- Lock
-    awful.key({ modkey, "Shift" }, "End", function () awful.util.spawn("slock") end),
+    awful.key({ modkey, "Shift" }, "End", function () awful.util.spawn("slock") end,
+      {description = "lock screen", group = "misc"}),
 
     -- Screenshot
-    awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("flameshot -p ~/pictures/screenshots") end),
-    awful.key({ }, "Print", function () awful.spawn.with_shell("flameshot gui") end),
+    awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("flameshot -p ~/pictures/screenshots") end,
+      {description = "take a screenshot", group = "misc"}),
+    awful.key({ }, "Print", function () awful.spawn.with_shell("flameshot gui") end,
+      {description = "open capture tool", group = "misc"}),
 
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume",
         function ()
             os.execute(string.format("amixer -q -D pulse set %s 5%%+", "Master"))
-        end),
+        end,
+        {description = "raise volume", group = "misc"}),
     awful.key({ }, "XF86AudioLowerVolume",
         function ()
             os.execute(string.format("amixer -q -D pulse set %s 5%%-", "Master"))
-        end),
+        end,
+        {description = "lower volume", group = "misc"}),
     awful.key({ }, "XF86AudioMute",
         function ()
             os.execute(string.format("pactl set-sink-mute 0 toggle"))
-	end),
+	end,
+        {description = "mute volume", group = "misc"}),
     awful.key({ }, "XF86AudioMicMute",
         function ()
             os.execute(string.format("pactl set-source-mute 1 toggle"))
-	end)
+	end,
+        {description = "mute microphone", group = "misc"}),
+
+    -- Tags
+    awful.key({ modkey, "Shift"   }, "r", rename_tag,
+          {description = "rename the current tag", group = "tag"}),
+    awful.key({ modkey, "Shift"   }, "n", awful.tag.viewnext,
+          {description = "view next tag", group = "tag"}),
+    awful.key({ modkey, "Shift"   }, "p", awful.tag.viewprev,
+          {description = "view previous tag", group = "tag"}),
+    awful.key({ modkey, "Shift"   }, "0", jump_to_window,
+          {description = "jump to a specific client", group = "tag"}),
+    awful.key({ modkey, "Control"   }, "o", move_tag_to_screen,
+          {description = "move a tag to next screen", group = "tag"})
+
+
 )
 
 clientkeys = gears.table.join(
@@ -416,9 +495,9 @@ for i = 1, 9 do
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
+                        local tag = tags[i]
                         if tag then
-                           tag:view_only()
+                           sharedtags.viewonly(tag, screen)
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
@@ -426,9 +505,9 @@ for i = 1, 9 do
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
+                      local tag = tags[i]
                       if tag then
-                         awful.tag.viewtoggle(tag)
+                         sharedtags.viewtoggle(tag)
                       end
                   end,
                   {description = "toggle tag #" .. i, group = "tag"}),
@@ -436,7 +515,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = client.focus.screen.tags[i]
+                          local tag = tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
                           end
@@ -447,7 +526,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = client.focus.screen.tags[i]
+                          local tag = tags[i]
                           if tag then
                               client.focus:toggle_tag(tag)
                           end
@@ -614,7 +693,6 @@ function run_once(prg,arg_string,pname,screen)
 	end
 end
 
--- Auto start softwares
+-- Auto start apps
 run_once("xss-lock -- slock")
-run_once("nm-applet")
 run_once("picom -b")
