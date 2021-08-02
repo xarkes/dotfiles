@@ -178,11 +178,15 @@ local tags = sharedtags({
     { name = "7", layout = awful.layout.layouts[2] },
     { name = "8", layout = awful.layout.layouts[2] },
     { name = "irc", layout = awful.layout.layouts[2] },
-    { name = "w0", layout = awful.layout.layouts[2] },
-    { name = "w1", layout = awful.layout.layouts[2] },
-    { name = "w2", layout = awful.layout.layouts[2] },
-    { name = "w3", layout = awful.layout.layouts[2] },
-    { name = "sc", screen = 2, layout = awful.layout.layouts[2] },
+    { name = "1²", layout = awful.layout.layouts[2] },
+    { name = "2²", layout = awful.layout.layouts[2] },
+    { name = "3²", layout = awful.layout.layouts[2] },
+    { name = "4²", layout = awful.layout.layouts[2] },
+    { name = "5²", layout = awful.layout.layouts[2] },
+    { name = "6²", layout = awful.layout.layouts[2] },
+    { name = "7²", layout = awful.layout.layouts[2] },
+    { name = "8²", layout = awful.layout.layouts[2] },
+    { name = "9²", layout = awful.layout.layouts[2] }
 })
 
 local function rename_tag()
@@ -224,7 +228,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Use shared tags among screens
-    sharedtags.viewonly(tags["sc"], s)
+    --sharedtags.viewonly(tags["sc"], s)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -290,8 +294,8 @@ globalkeys = gears.table.join(
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
+    --awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+    --          {description = "go back", group = "tag"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -501,16 +505,44 @@ for i = 1, 9 do
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
+        awful.key({ modkey, "Mod3" }, "#" .. i + 9,
+                  function ()
+                        local screen = awful.screen.focused()
+                        local tag = tags[i + 9]
+                        if tag then
+                           sharedtags.viewonly(tag, screen)
+                        end
+                  end,
+                  {description = "view tag #"..(i + 9), group = "tag"}),
         -- Toggle tag display.
+        --awful.key({ modkey, "Control" }, "#" .. i + 9,
+        --          function ()
+        --              local screen = awful.screen.focused()
+        --              local tag = tags[i]
+        --              if tag then
+        --                 sharedtags.viewtoggle(tag)
+        --              end
+        --          end,
+        --          {description = "toggle tag #" .. i, group = "tag"}),
+
+        -- Swap current tag with the associated one
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
-                      local screen = awful.screen.focused()
-                      local tag = tags[i]
-                      if tag then
-                         sharedtags.viewtoggle(tag)
+                      -- i is the index of target tag in variable `tags'
+                      local from = awful.screen.focused().selected_tags[1]
+                      local to = tags[i + 9]
+                      if to then
+                          t = to:clients()
+                          for i, c in ipairs(from:clients()) do
+                              c:move_to_tag(to)
+                          end
+                          for i, c in ipairs(t) do
+                              c:move_to_tag(from)
+                          end
                       end
                   end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
+                  {description = "swap current tag with tag #"..i, group = "tag"}),
+
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
@@ -522,17 +554,28 @@ for i = 1, 9 do
                      end
                   end,
                   {description = "move focused client to tag #"..i, group = "tag"}),
-        -- Toggle tag on focused client.
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+        awful.key({ modkey, "Mod3", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = tags[i]
+                          local tag = tags[i + 9]
                           if tag then
-                              client.focus:toggle_tag(tag)
+                              client.focus:move_to_tag(tag)
                           end
-                      end
+                     end
                   end,
-                  {description = "toggle focused client on tag #" .. i, group = "tag"})
+                  {description = "move focused client to tag #"..(i + 9), group = "tag"})
+
+        -- Toggle tag on focused client.
+        --awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+        --          function ()
+        --              if client.focus then
+        --                  local tag = tags[i]
+        --                  if tag then
+        --                      client.focus:toggle_tag(tag)
+        --                  end
+        --              end
+        --          end,
+        --          {description = "toggle focused client on tag #" .. i, group = "tag"})
     )
 end
 
@@ -696,3 +739,4 @@ end
 -- Auto start apps
 run_once("xss-lock -- slock")
 run_once("picom -b")
+run_once("xmodmap -e 'add mod3 = Escape'")
