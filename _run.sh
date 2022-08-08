@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONFIG_DIR=~/.config
-BACKUP="nvim awesome alacritty picom git"
+BACKUP="nvim awesome alacritty git"
 BACKUPROOT=".rizinrc .zshrc"
 
 install_files() {

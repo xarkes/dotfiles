@@ -738,5 +738,4 @@ end
 
 -- Auto start apps
 run_once("xss-lock -- slock")
-run_once("picom -b")
 run_once("xmodmap -e 'add mod3 = Escape'")
