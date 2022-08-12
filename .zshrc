@@ -6,14 +6,11 @@ setopt prompt_subst
 autoload -U colors && colors
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-PRCH=(
-    sep $'\uE0B1' end $'\uE0B0'
-    retb "" reta $' \u2717'
-    circle $'\u25CF' branch $'\uE0A0'
-    ok $'\u2713' ellipsis $'\u2026'
-    eol $'\u23CE' running $'\u276d'
-)
+# Enable history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
 # Set VCS information (git prompt)
 autoload -Uz vcs_info
@@ -40,6 +37,7 @@ alias vi=nvim
 alias sudo='sudo ' # nice trick to allow checking for an alias after sudo
 alias wgu='sudo wg-quick up'
 alias wgd='sudo wg-quick down'
+alias ga='git add'
 alias gst='git status'
 alias gc='git commit'
 alias gco='git checkout'
