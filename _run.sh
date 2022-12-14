@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONFIG_DIR=~/.config
-BACKUP="nvim awesome alacritty git"
+BACKUP="nvim awesome alacritty git helix"
 BACKUPROOT=".rizinrc .zshrc"
 
 install_files() {
