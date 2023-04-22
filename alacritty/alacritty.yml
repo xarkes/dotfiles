@@ -2,6 +2,9 @@ font:
   normal:
     family: Inconsolata Nerd Font Mono
     style: Regular
-  size: 8.0
+  #size: 8.0
+  size: 14.0
+window:
+  opacity: 0.8
 key_bindings:
   - { key: T, mods: Shift|Control, action: SpawnNewInstance }
