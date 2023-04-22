@@ -213,3 +213,6 @@ bar {
 }
 
 include /etc/sway/config.d/*
+
+## Background
+output "*" bg ~/.config/sway/wallpaper.jpg fill
