@@ -30,10 +30,10 @@ zstyle ':vcs_info:*' enable git
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 
-
 # Useful environment variables
-export EDITOR="nvim"
+export EDITOR="helix"
 PROMPT='%F{33}u%f%F{39}s%f%F{38}e%f%F{44}r%f%F{50}@%m:%f%F{212}%1~/%f %F{44}%#%f ${vcs_info_msg_0_}'
+export PATH="$PATH:$HOME/tools/flutter/bin"
 
 # Aliases
 alias ls='ls --color=auto'
@@ -47,3 +47,4 @@ alias gst='git status'
 alias gc='git commit'
 alias gco='git checkout'
 alias gl='git pull'
+alias hx='helix'
