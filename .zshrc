@@ -14,6 +14,8 @@ setopt appendhistory
 # Smart search when using arrow up and down
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
+# Have a working DEL key :o
+bindkey "^[[3~" delete-char
 
 # Set VCS information (git prompt)
 autoload -Uz vcs_info
@@ -33,7 +35,6 @@ precmd_functions+=( precmd_vcs_info )
 # Useful environment variables
 export EDITOR="helix"
 PROMPT='%F{33}u%f%F{39}s%f%F{38}e%f%F{44}r%f%F{50}@%m:%f%F{212}%1~/%f %F{44}%#%f ${vcs_info_msg_0_}'
-export PATH="$PATH:$HOME/tools/flutter/bin"
 
 # Aliases
 alias ls='ls --color=auto'
@@ -48,3 +49,6 @@ alias gc='git commit'
 alias gco='git checkout'
 alias gl='git pull'
 alias hx='helix'
+
+# Update PATH here
+export PATH="$PATH:$HOME/tools/flutter/bin"
