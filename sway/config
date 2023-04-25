@@ -41,12 +41,14 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Lock screen
 #
-    set $lock_command swaylock -f -c 000000 -e -u
+    set $lock_command swaylock -c 000000 -e -u
+    set $lock_and_off swayidle timeout 3 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' & $lock_command && kill %%
     exec swayidle -w \
-             timeout 300 "$lock_command" \
-             timeout 301 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+             timeout 7200 "$lock_command" \
+             timeout 7200 'swaymsg "output * power off"' \
+             resume 'swaymsg "output * power on"' \
              before-sleep "$lock_command"
-    bindsym $mod+Shift+End exec $lock_command
+    bindsym $mod+Shift+End exec $lock_and_off
 
 ### Input configuration
 #
