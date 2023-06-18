@@ -8,9 +8,11 @@ autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # Enable history
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt inc_append_history
+alias history='history 0'
+
 # Smart search when using arrow up and down
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
