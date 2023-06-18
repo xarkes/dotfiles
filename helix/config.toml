@@ -2,3 +2,6 @@ theme = "monokai_pro_spectrum"
 
 [editor]
 true-color = true
+
+[editor.soft-wrap]
+enable = true
