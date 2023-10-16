@@ -2,7 +2,7 @@
 
 CONFIG_DIR=~/.config
 BACKUP="nvim awesome alacritty git helix sway"
-BACKUPROOT=".rizinrc .zshrc"
+BACKUPROOT=".rizinrc .zshrc .tmux.conf"
 
 install_files() {
   # Backup files that are in .config
