@@ -35,22 +35,17 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 
 # Useful environment variables
-export EDITOR="helix"
-PROMPT='%F{33}u%f%F{39}s%f%F{38}e%f%F{44}r%f%F{50}@%m:%f%F{212}%1~/%f %F{44}%#%f ${vcs_info_msg_0_}'
+export EDITOR="hx"
+export PS1="%{$(tput setaf 15)%}%n%{$(tput setaf 220)%}@%{$(tput setaf 15)%}%m %{$(tput setaf 122)%}%1~ %{$(tput sgr0)%}$ "
 
 # Aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias vi=nvim
-alias sudo='sudo ' # nice trick to allow checking for an alias after sudo
-alias wgu='sudo wg-quick up'
-alias wgd='sudo wg-quick down'
 alias ga='git add'
 alias gst='git status'
 alias gc='git commit'
 alias gco='git checkout'
 alias gl='git pull'
-alias hx='helix'
 
 # Update PATH here
 export PATH="$PATH:$HOME/tools/flutter/bin"
