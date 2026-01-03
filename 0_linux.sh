@@ -1,7 +1,9 @@
 #!/bin/sh
 
 CONFIG_DIR=~/.config
-BACKUP="nvim awesome alacritty git helix sway"
+# Old times backups
+# BACKUP="nvim awesome alacritty git helix sway"
+BACKUP="alacritty helix hypr waybar"
 BACKUPROOT=".rizinrc .zshrc .tmux.conf"
 
 install_files() {
