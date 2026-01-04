@@ -16,16 +16,15 @@
 
 #workspaces button {
     color: @foreground;
-    padding-left: 0.7em;
+    padding-right: 0.5em;
 }
 
 #workspaces button.empty {
     color: @foreground-inactive;
 }
 
-#memory,
-#custom-platform-profile {
-    padding-left: 1em
+#memory {
+    padding-left: 1em;
 }
 
 #wireplumber,
