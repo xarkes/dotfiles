@@ -36,7 +36,7 @@ precmd_functions+=( precmd_vcs_info )
 
 # Useful environment variables
 export EDITOR="hx"
-export PS1="%{$(tput setaf 231)%}%n%{$(tput setaf 231)%}@%{$(tput setaf 231)%}%m %{$(tput setaf 33)%}%1~ %{$(tput sgr0)%}$ "
+export PS1="%{$(tput setaf 231)%}%n%{$(tput setaf 231)%}@%{$(tput setaf 231)%}%m %{$(tput setaf 33)%}%1~ %{$(tput sgr0)%}%# "
 
 # Aliases
 alias ls='ls --color=auto'

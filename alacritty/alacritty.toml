@@ -9,7 +9,7 @@ size = 10.0
 background = "#191D27"
 
 [window]
-opacity = 0.9
+opacity = 0.8
 
 [[keyboard.bindings]]
 action = "SpawnNewInstance"
