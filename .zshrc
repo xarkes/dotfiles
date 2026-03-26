@@ -19,21 +19,6 @@ bindkey "^[[B" history-beginning-search-forward
 # Have a working DEL key :o
 bindkey "^[[3~" delete-char
 
-# Set VCS information (git prompt)
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-() {
-    local formats="(%b%c%u) "
-    local actionformats="${formats}%{${fg[default]}%} xx %{${fg[green]}%}%a"
-    zstyle ':vcs_info:*:*' formats           $formats
-    zstyle ':vcs_info:*:*' actionformats     $actionformats
-    zstyle ':vcs_info:*:*' stagedstr         "%{${fg[green]}%}✗%f"
-    zstyle ':vcs_info:*:*' unstagedstr       "%{${fg[yellow]}%}✗%f"
-    zstyle ':vcs_info:*:*' check-for-changes true
-}
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-
 # Useful environment variables
 export EDITOR="hx"
 export PS1="%{$(tput setaf 231)%}%n%{$(tput setaf 231)%}@%{$(tput setaf 231)%}%m %{$(tput setaf 33)%}%1~ %{$(tput sgr0)%}%# "
