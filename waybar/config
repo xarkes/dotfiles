@@ -4,31 +4,21 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["hyprland/workspaces", "temperature"],
+    "modules-left": ["ext/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "memory", "wireplumber", "hyprland/language", "network", "bluetooth"],
+    "modules-right": ["tray", "memory", "wireplumber", "network"],
 
-    "hyprland/workspaces": {
+    "ext/workspaces": {
         "format": "<span size='larger'>{icon}</span>",
         "on-click": "activate",
+        "on-click-right": "deactivate",
+        "on-scroll-up": "mmsg -d viewtoleft_have_client",
+        "on-scroll-down": "mmsg -d viewtoright_have_client",
+        "sort-by-id": true,
         "format-icons": {
             "active": "\uf444",
             "default": "\uf4c3"
         },
-        "icon-size": 10,
-        "sort-by-number": true,
-        "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": [],
-            "6": [],
-            "7": [],
-            "8": [],
-            "9": [],
-            "0": [],
-        }
     },
 
     "clock": {
@@ -46,10 +36,6 @@
         "format": "\uf4bc  {used:0.1f}G"
     },
 
-    "temperature": {
-        "format": "{temperatureC}°C"
-    },
-
     "network": {
         "format": "",
         "format-ethernet": "\udb83\udc9d",
@@ -60,20 +46,6 @@
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "swaync-client -t -sw",
-    },
-
-    "bluetooth": {
-        "format": "\udb80\udcaf",
-        "format-disabled": "\udb80\udcb2",
-        "format-connected": "\udb80\udcb1",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "on-click": "swaync-client -t -sw",
-    },
-
-    "hyprland/language": {
-        "format": "{short}"
     },
 
     "tray": {
