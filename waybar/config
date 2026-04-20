@@ -9,16 +9,12 @@
     "modules-right": ["tray", "memory", "wireplumber", "network"],
 
     "ext/workspaces": {
-        "format": "<span size='larger'>{icon}</span>",
+        "format": "{icon}",
         "on-click": "activate",
         "on-click-right": "deactivate",
         "on-scroll-up": "mmsg -d viewtoleft_have_client",
         "on-scroll-down": "mmsg -d viewtoright_have_client",
         "sort-by-id": true,
-        "format-icons": {
-            "active": "\uf444",
-            "default": "\uf4c3"
-        },
     },
 
     "clock": {

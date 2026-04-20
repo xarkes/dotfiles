@@ -4,7 +4,7 @@
 
 * {
     font-family: JetBrainsMono Nerd Font;
-    font-size: 17px;
+    font-size: 16px;
     padding: 0;
     margin: 0;
 }
@@ -15,12 +15,12 @@
 }
 
 #workspaces button {
-    color: @foreground;
+    color: @foreground-inactive;
     padding-right: 0.5em;
 }
 
-#workspaces button.empty {
-    color: @foreground-inactive;
+#workspaces button.active {
+    color: @foreground;
 }
 
 #memory {
